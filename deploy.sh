@@ -12,6 +12,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:NN-NT-TN/rest-countries-api-with-color-theme-switcher.git main:gh-pages
+git push -f git@github.com:NN-NT-TN/rest-countries-api-with-color-theme-switcher.git master:gh-pages
 
 cd -
