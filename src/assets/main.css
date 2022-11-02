@@ -1,0 +1,23 @@
+@import './base.css';
+
+#app {
+  
+  font-weight: normal;
+}
+
+body{
+  font-family: 'Nunito_Sans', 'serif';
+  background-color: var(--BackGround-color);
+  color: var(--Text-color);
+}
+a{
+  color: var(--Text-color);
+}
+.bg-light{
+  --BackGround-color: hsl(0, 0%, 98%);;
+  --Text-color:  hsl(200, 15%, 8%);
+  --Element-color:hsl(0, 0%, 100%);
+}
+.bg-light a{
+  color: var( --Text-color);
+}
