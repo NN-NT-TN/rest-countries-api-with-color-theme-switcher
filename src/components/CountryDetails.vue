@@ -75,37 +75,42 @@ export default defineComponent({
     </div>
     <div class="country-details-container">
       <div class="country-flag-container"><img :src=countryFlagImage alt='Flag Image'></div>
-      <div class="grid-container country-info-container">
-        <div class="gird-item item-1">
+      <div class="country-info-container">
+        
           <h2>{{ countryName }}</h2>
-        </div>
-        <div class="grid-item item-2">
-          <div><span class="label-text">Native Name:</span> {{ countryNativeName }}</div>
-          <div><span class="label-text">Population:</span> {{ population.toLocaleString() }}</div>
-          <div><span class="label-text">Region:</span> {{ countryRegion }}</div>
-          <div><span class="label-text">Sub Region</span>{{ countrySubRegion }}</div>
-          <div v-if="(typeof countryCapital !== 'undefined')">
-            <span class="label-text">Capital: </span>
-            <span v-for="capital  in countryCapital">{{ capital }}</span>
+
+        <div class="flex lrg-gap col-mol space-between">
+          <div class="">
+            <div><span class="label-text">Native Name:</span> {{ countryNativeName }}</div>
+            <div><span class="label-text">Population:</span> {{ population.toLocaleString() }}</div>
+            <div><span class="label-text">Region:</span> {{ countryRegion }}</div>
+            <div><span class="label-text">Sub Region</span>{{ countrySubRegion }}</div>
+            <div v-if="(typeof countryCapital !== 'undefined')">
+              <span class="label-text">Capital: </span>
+              <span v-for="capital  in countryCapital">{{ capital }}</span>
+            </div>
+          </div>
+          <div class="">
+            <div>
+              <span class="label-text">Top Level Domain: </span>
+              <span v-for="tld  in countryTopLevelDomain">{{ tld }}</span>
+            </div>
+            <div><span class="label-text">Currencies: </span> {{ countryCurrencies }}</div>
+            <div>
+              <span class="label-text">Languages: </span>
+              <span v-for="(language, index) in countryLanguages" :key="index">
+                <span v-if="index < countryLanguages.length - 1"> {{ language }}, </span>
+                <span v-else>{{ language }}</span>
+              </span>
+            </div>
           </div>
         </div>
-        <div class="gird-item item-3">
-          <div>
-            <span class="label-text">Top Level Domain: </span>
-            <span v-for="tld  in countryTopLevelDomain">{{ tld }}</span>
-          </div>
-          <div><span class="label-text">Currencies: </span> {{ countryCurrencies }}</div>
-          <div>
-            <span class="label-text">Languages: </span>
-            <span v-for="(language, index) in countryLanguages" :key="index">
-              <span v-if="index < countryLanguages.length - 1"> {{ language }}, </span>
-              <span v-else>{{ language }}</span>
-            </span>
-          </div>
-        </div>
-        <div class="grid-item item-4">
-          <span class="label-text" v-if="countryBorderCountries !== undefined">Border Countries: </span>
-          <span  class="border-countries-container"><span class="border-country-container" v-for="countryBorderCountry in countryBorderCountries">{{ countryBorderCountry }}</span></span>
+        <div class="flex col-mol small-gap margin-top-lrg">
+          <span class="label-text" style="flex-basis: 30%;" v-if="countryBorderCountries !== undefined">Border Countries: </span>
+          <span  class="border-countries-container">
+            <div class="border-country-container" v-for="countryBorderCountry in countryBorderCountries">
+              {{ countryBorderCountry }}</div>
+          </span>
         </div>
         <!-- <div>{{}}</div> -->
       </div>
@@ -118,7 +123,7 @@ export default defineComponent({
 
 main{
   padding: 0 2rem;
-  
+  font-size: .8em;
 }
 .back-btn-container{
   margin: 2rem 0;
@@ -143,9 +148,12 @@ main{
 }
 .border-country-container{
   background-color: var(--Element-color);
-  margin-right: .75rem;
+ 
   padding: .5rem;
   box-shadow: 0px 2px 12px 4px rgba(0, 0, 0, 0.5);
+}
+.country-info-container h2{
+  margin-bottom: 1.5rem;
 }
 .country-flag-container{
   flex-basis: 32%;
@@ -155,30 +163,32 @@ main{
 }
 .country-info-container{
   font-size: 1em;
+  flex-basis: 50%;
 }
-.grid-container {
-  display: grid;
-  gap: 2rem;
+.flex{
+  display: flex;
 }
-.item-1 {
-  grid-column: 1 / span 3;
-  grid-row: 1;
+.space-between{
+  justify-content: space-between;
 }
-
-.item-2 {
-  grid-column: 3/ span 3;
-  grid-row: 2;
+.lrg-gap{
+  gap:2rem;
 }
-.item-3 {
-  grid-column: 1 /  span 3;
-  grid-row: 2;
+.small-gap{
+  gap:1rem;
 }
-
-.item-4 {
-  grid-column: 1 / span 3;
-  grid-row: 3;
+.margin-top-small{
+  margin-top: 1.5rem;
 }
-
+.margin-top-lrg{
+  margin-top: 3rem;
+}
+.border-countries-container{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  gap: 1rem;
+}
 .gg-arrow-left {
     box-sizing: border-box;
     position: relative;
@@ -219,7 +229,7 @@ main{
   padding-bottom:4rem;
 }
 .country-details-container{
-  align-items: center;
+  
   flex-direction: column;
   gap: 2rem;
 }
@@ -227,39 +237,15 @@ main{
   width: 100%;
   
 }
-  .grid-container {
-  display: grid;
-  gap: 2rem;
-}
-.item-1 {
-  grid-column: 1 ;
-  grid-row: 1;
-}
-
-.item-2 {
-  grid-column: 1;
-  grid-row: 2;
-}
-.item-3 {
-  grid-column: 1 ;
-  grid-row: 3;
-}
-
-.item-4 {
-  grid-column: 1 ;
-  grid-row: 4;
+.col-mol{
+  flex-direction: column;
 }
 .item-4{
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.border-countries-container{
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  gap: 1rem;
-}
+
 .border-country-container{
   margin: 0;
 }

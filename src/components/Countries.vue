@@ -190,7 +190,7 @@ h3 {
 }
 .country{
   background-color: var(--Element-color);
-  /* min-height: 5rem; */
+  
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -207,8 +207,8 @@ h3 {
  flex-basis: 50%;
 }
 .flag-container img{
-  width: 100%;
-  height: 10rem;
+  min-width: 100%;
+  height: 12rem;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
@@ -243,7 +243,12 @@ h3 {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
-
+@media (min-width: 600px) {
+  .navigation, .countries-container{
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
 @media (max-width: 600px) {
 
   .countries-container{
