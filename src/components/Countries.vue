@@ -185,8 +185,8 @@ h3 {
 .countries-container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 2rem;
-  row-gap: 2rem;
+  column-gap: 4rem;
+  row-gap: 4rem;
 }
 .country{
   background-color: var(--Element-color);
@@ -208,7 +208,7 @@ h3 {
 }
 .flag-container img{
   min-width: 100%;
-  height: 12rem;
+  height: 9rem;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
@@ -245,8 +245,8 @@ h3 {
 }
 @media (min-width: 600px) {
   .navigation, .countries-container{
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 @media (max-width: 600px) {
