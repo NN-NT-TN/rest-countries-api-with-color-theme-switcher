@@ -106,7 +106,7 @@ export default defineComponent({
           </div>
         </div>
         <div class="flex col-mol small-gap margin-top-lrg">
-          <span class="label-text" style="flex-basis: 30%;" v-if="countryBorderCountries !== undefined">Border Countries: </span>
+          <span class="label-text" style="width: 10rem" v-if="countryBorderCountries !== undefined">Border Countries: </span>
           <span  class="border-countries-container">
             <div class="border-country-container" v-for="(countryBorderCountry, index) in countryBorderCountries"
             :key="index"

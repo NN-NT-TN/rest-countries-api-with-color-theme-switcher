@@ -4,7 +4,7 @@ import App from '../../src/App.vue'
 import { createRouter,  createWebHashHistory} from 'vue-router'
 
 const routes = [
-    { path: '', component: Countries},
+    { path: '/', component: Countries},
     { path: '/Country/:name', component: CountryDetails },
   ]
   const router =createRouter({

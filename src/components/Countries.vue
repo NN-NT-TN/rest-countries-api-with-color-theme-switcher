@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import SearchBar from './SearchBar.vue'
 import axios from 'axios'
 import router from '../router/router.js'
+
 export default defineComponent({
   name: 'countries',
   data() {
@@ -12,42 +13,49 @@ export default defineComponent({
       regions: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
       active: false,
       search: '',
-      searchResult:[]
+      searchResult:[],
+      currentPage:1,
+      maxPerPage:8
     }
   },
   components: {
     SearchBar
+  },
+  computed:{
+    paginatedOrders() {
+        return this.countries.slice(0, this.currentPage * this.maxPerPage);
+    }
   }
   ,
   methods: {
     getCountries() {
       axios.get('https://restcountries.com/v3.1/all')
-        .then(response => this.countries = response.data.slice(0,8)
+        .then(response => this.countries = response.data
         )
         
+    },
+    loadMore() {
+    this.currentPage += 1
+    },
+    loadAll() {
+      this.currentPage += Math.floor(this.countries.length/this.maxPerPage)
     },
     getNextCountries() {
       window.onscroll = () => {
         let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-        if (bottomOfWindow) {
-          axios.get(`https://restcountries.com/v3.1/all`).then(response => {
-            this.countries=response.data;
-          });
+        if (bottomOfWindow && window.innerWidth<=600) {
+          this.loadMore()
         }
       }
     }
     ,
-    getCountriesSearch() {
-      console.log(this.search);
-      if(this.search.length>0)
-      {
-      axios.get('https://restcountries.com/v3.1/name/'+this.search)
+    getCountriesSearchData() {
+      //console.log(this.search);
+      
+      axios.get('https://restcountries.com/v3.1/all')
         .then(response => this.searchResult = response.data
         )
-      }
-      else{
-        this.searchResult=[]
-      }
+     
     },
     getCountriesByRegion(region) {
       axios.get('https://restcountries.com/v3.1/region/' + region)
@@ -57,10 +65,11 @@ export default defineComponent({
     
   },
   beforeMount() {
-   
+    this.getCountriesSearchData()
     this.getCountries()
   },
   mounted() {
+    //this.getCountries()
     this.getNextCountries()
   }
 })
@@ -73,7 +82,7 @@ export default defineComponent({
       <div  class="navigation">
         
           <div class="autocomplete-container">
-            <SearchBar :items='countries.map(item => item.name.official)' />
+            <SearchBar :items='searchResult && searchResult.map(item => item.name.official)' />
           </div>
           <!-- <input type="text" name="search" v-model="search" @keydown.enter="getCountriesSearch">
           <div v-if="searchResult.length>0">
@@ -91,7 +100,7 @@ export default defineComponent({
         </div>
       </div>
       <div  class="countries-container">
-        <div class="country" v-for="country  in countries " @click="$router.replace({ path: '/Country/'+ country.name.official })">
+        <div class="country" v-for="country  in paginatedOrders " @click="$router.replace({ path: '/Country/'+ country.name.official })">
           
           <div class="flag-container"><img :src=country.flags.png alt="Flag Image"></div>
           <div class="info-container">
@@ -101,10 +110,13 @@ export default defineComponent({
             <div v-if="(typeof country.capital !== 'undefined')"><span class="info-title">Capital:</span> {{ country.capital[0] }}</div>
           </div>
           
+          
         </div>
       </div>
-
-
+      <div class="load-btn-container">
+        <button @click="loadMore" v-if="currentPage * maxPerPage < countries.length">Load More</button>
+        <button @click="loadAll" v-if="currentPage * maxPerPage < countries.length">Load All</button>
+      </div>
     </main>
 </template>
 
@@ -187,6 +199,7 @@ h3 {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 4rem;
   row-gap: 4rem;
+  margin-bottom: 2rem;
 }
 .country{
   background-color: var(--Element-color);
@@ -204,11 +217,11 @@ h3 {
   box-shadow: 0px 2px 12px 4px rgba(0, 0, 0, 0.1);
 }
 .flag-container {
- flex-basis: 50%;
+ height: 50%;
 }
 .flag-container img{
   min-width: 100%;
-  height: 9rem;
+  height: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
@@ -243,11 +256,25 @@ h3 {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+.load-btn-container{
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  gap: 1rem;
+}
+.load-btn-container button{
+  padding: .5rem 2rem;
+  background-color: var(--Element-color);
+  border: 1px solid var(--Element-color);
+  color: var(--Text-color);
+  font-weight: 700;
+}
 @media (min-width: 600px) {
   .navigation, .countries-container{
     margin-left: 2rem;
     margin-right: 2rem;
   }
+ 
 }
 @media (max-width: 600px) {
 
@@ -269,5 +296,9 @@ h3 {
 .countries-container{
   padding: 0 4rem;
 }
+.load-btn-container{
+    display: none;
+  }
 }
+
 </style>
