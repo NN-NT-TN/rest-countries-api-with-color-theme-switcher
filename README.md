@@ -20,13 +20,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -100,6 +93,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+You can search for countries filter by region and click on country for more details. You can also switch between dark mode and light mode 
 ### Main Site
 <p align="middle">
   <img src="./screenshots/main-site.png" width="49%" />
@@ -109,7 +103,17 @@ This section should list any major frameworks/libraries used to bootstrap your p
   <img src="./screenshots/main-site-mobile.png" width="15%" />
   <img src="./screenshots/main-site-light-mobile.png" width="15%" /> 
 </p>
-### Countries Detail
+
+### Countries Details
+<p align="middle">
+  <img src="./screenshots/details.png" width="49%" />
+  <img src="./screenshots/details-light.png" width="49%" /> 
+</p>
+<p align="middle">
+  <img src="./screenshots/details-mobile.png" width="15%" />
+  <img src="./screenshots/details-light-mobile.png" width="15%" /> 
+</p>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -147,9 +151,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Your Name - Nguyen Nhat Tien
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/NN-NT-TN/rest-countries-api-with-color-theme-switcher](https://github.com/NN-NT-TN/rest-countries-api-with-color-theme-switcher)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
