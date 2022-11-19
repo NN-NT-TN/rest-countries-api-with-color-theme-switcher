@@ -13,7 +13,6 @@ export default defineComponent({
       regions: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
       active: false,
       search: '',
-      searchResult:[],
       currentPage:1,
       maxPerPage:8
     }
@@ -29,9 +28,22 @@ export default defineComponent({
   ,
   methods: {
     getCountries() {
-      axios.get('https://restcountries.com/v3.1/all')
-        .then(response => this.countries = response.data
+      if( localStorage.countries){
+        //console.log(  JSON.parse(localStorage.countries));
+      this.countries = JSON.parse(localStorage.countries);
+      //this.countries = JSON.parse(this.countries);
+     
+    }
+      else{
+        axios.get('https://restcountries.com/v3.1/all')
+        .then(response => (/*this.countries = response.data,*/
+                          localStorage.countries=JSON.stringify(response.data),
+                          this.countries=JSON.parse(localStorage.countries),
+                          //this.countries = JSON.parse(this.countries),
+                          console.log('call'))
         )
+      }
+      
         
     },
     loadMore() {
@@ -49,27 +61,27 @@ export default defineComponent({
       }
     }
     ,
-    getCountriesSearchData() {
-      //console.log(this.search);
-      
-      axios.get('https://restcountries.com/v3.1/all')
-        .then(response => this.searchResult = response.data
-        )
-     
-    },
     getCountriesByRegion(region) {
-      axios.get('https://restcountries.com/v3.1/region/' + region)
-        .then(response => this.countries = response.data
-        )
+      if( localStorage.countries){
+        //console.log(  JSON.parse(localStorage.countries));
+        this.countries = JSON.parse(localStorage.countries).filter(country => country.region === region); 
+      //this.countries = JSON.parse(this.countries);
+     
+      }
+       
+      else
+      {axios.get('https://restcountries.com/v3.1/region/' + region)
+        .then(response => (this.countries = response.data, console.log('call'))
+
+        )}
     },
     
   },
   beforeMount() {
-    this.getCountriesSearchData()
+    
     this.getCountries()
   },
   mounted() {
-    //this.getCountries()
     this.getNextCountries()
   }
 })
@@ -82,7 +94,7 @@ export default defineComponent({
       <div  class="navigation">
         
           <div class="autocomplete-container">
-            <SearchBar :items='searchResult && searchResult.map(item => item.name.official)' />
+            <SearchBar :items='countries && countries.map(item => item.name.official)' />
           </div>
           <!-- <input type="text" name="search" v-model="search" @keydown.enter="getCountriesSearch">
           <div v-if="searchResult.length>0">

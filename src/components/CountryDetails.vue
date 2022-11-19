@@ -30,6 +30,7 @@ export default defineComponent({
         return;
       }
       for (let index = 0; index < code.length; index++) {
+       
         axios.get('https://restcountries.com/v3.1/alpha/' + code[index])
         .then(res => (code[index] = res.data[0].name.common))
       }
@@ -39,6 +40,7 @@ export default defineComponent({
     },
     getCountry(Name) {
       //let name=this.$route.params.name;
+      
       axios.get('https://restcountries.com/v3.1/name/' + Name)
         .then(response => (
           this.countryName = response.data[0].name.official,
@@ -53,8 +55,7 @@ export default defineComponent({
           this.countryCurrencies= Object.values(response.data[0].currencies.valueOf())[0].name,
           this.countryLanguages=Object.values(response.data[0].languages.valueOf()),
           this.countryBorderCountries= response.data[0].borders,
-        this.getCountryFromCode(this.countryBorderCountries)
-          ,
+        //this.getCountryFromCode(this.countryBorderCountries),
           console.log( response.data[0])))
     }
   },
@@ -84,7 +85,7 @@ export default defineComponent({
             <div><span class="label-text">Native Name:</span> {{ countryNativeName }}</div>
             <div><span class="label-text">Population:</span> {{ population.toLocaleString() }}</div>
             <div><span class="label-text">Region:</span> {{ countryRegion }}</div>
-            <div><span class="label-text">Sub Region</span>{{ countrySubRegion }}</div>
+            <div><span class="label-text">Sub Region: </span>{{ countrySubRegion }}</div>
             <div v-if="(typeof countryCapital !== 'undefined')">
               <span class="label-text">Capital: </span>
               <span v-for="capital  in countryCapital">{{ capital }}</span>
