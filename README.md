@@ -82,9 +82,6 @@
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-
 * [![Vue][Vue.js]][Vue-url]
 * [![Vite][Vite.dev]][Vite-url]
 
@@ -161,8 +158,6 @@ Project Link: [https://github.com/NN-NT-TN/rest-countries-api-with-color-theme-s
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
